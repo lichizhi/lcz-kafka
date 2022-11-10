@@ -17,7 +17,7 @@ public class KafkaTopicDml {
 
         // 创建Topic
         List<NewTopic> newTopics = new ArrayList<>();
-        newTopics.add(new NewTopic("topic01", 3, (short) 3));
+        newTopics.add(new NewTopic("topic02", 3, (short) 3));
 //        newTopics.add(new NewTopic("topic03", 3, (short) 3));
         // 异步创建
 //        adminClient.createTopics(newTopics);
@@ -42,7 +42,7 @@ public class KafkaTopicDml {
         }
 
         // 查看Topic详细信息
-        DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(Collections.singletonList("topic01"));
+        DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(Collections.singletonList("topic02"));
         Map<String, TopicDescription> topicDescriptionMap = describeTopicsResult.allTopicNames().get();
         topicDescriptionMap.forEach((name, topicDescription) -> System.out.println(topicDescription.toString()));
 

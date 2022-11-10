@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class KafkaConsumerTransReadCommitted {
+public class KafkaConsumerTransReadCommitted02 {
     public static void main(String[] args) {
         // 创建KafkaConsumer
         Properties props = new Properties();
@@ -23,7 +23,7 @@ public class KafkaConsumerTransReadCommitted {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         // 订阅Topics
-        consumer.subscribe(Collections.singletonList("topic01"));
+        consumer.subscribe(Collections.singletonList("topic02"));
         // 遍历消息队列
         while (true) {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));

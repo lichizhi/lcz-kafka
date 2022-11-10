@@ -20,17 +20,18 @@ public class KafkaProducerTransOnly {
             producer.beginTransaction();
             for (int i = 0; i < 10; i++) {
                 // 模拟异常
-                if (i == 8) {
-                    i = 10 / 0;
-                }
-                ProducerRecord<String, String> record = new ProducerRecord<>("topic01", "transaction_" + i, "error data_" + i);
+//                if (i == 8) {
+//                    i = 10 / 0;
+//                }
+//                ProducerRecord<String, String> record = new ProducerRecord<>("topic01", "transaction_" + i, "error data_" + i);
+                ProducerRecord<String, String> record = new ProducerRecord<>("topic01", "transaction_" + i, "right data_" + i);
                 producer.send(record);
                 producer.flush();
             }
             // 事务提交
             producer.commitTransaction();
         } catch (Exception e) {
-            System.out.println("transaction error: " + e.getMessage());
+            System.err.println("transaction error: " + e.getMessage());
             // 终止事务
             producer.abortTransaction();
         } finally {
@@ -53,7 +54,7 @@ public class KafkaProducerTransOnly {
         props.put(ProducerConfig.LINGER_MS_CONFIG, 5);
 
         // 配置重试
-        props.put(ProducerConfig.RETRIES_CONFIG, "all");
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
         // 默认是30秒
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 20000);
         // 配置幂等
