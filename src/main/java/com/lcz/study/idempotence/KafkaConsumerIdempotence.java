@@ -1,4 +1,4 @@
-package com.lcz.study.acks;
+package com.lcz.study.idempotence;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -10,14 +10,14 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class KafkaConsumerAcks {
+public class KafkaConsumerIdempotence {
     public static void main(String[] args) {
         // 创建KafkaConsumer
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "lczA:9092,lczB:9092,lczC:9092");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "g5");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "g4");
         // default: latest  other: earliest  none
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 

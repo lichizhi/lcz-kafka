@@ -1,4 +1,4 @@
-package com.lcz.study.acks;
+package com.lcz.study.idempotence;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -7,7 +7,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class KafkaProducerAcks {
+public class KafkaProducerIdempotence {
     public static void main(String[] args) {
         // 创建KafkaProducer
         Properties props = new Properties();
@@ -20,11 +20,14 @@ public class KafkaProducerAcks {
         props.put(ProducerConfig.RETRIES_CONFIG, 3);
         // 超时时间1ms
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 1);
-        props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, false);
+        // 开启幂等性
+        props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+        // 如果有1个发送不成功，就阻塞  默认是5  小于等于就行
+        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
-        ProducerRecord<String, String> record = new ProducerRecord<>("topic01", "ack", "test ack");
+        ProducerRecord<String, String> record = new ProducerRecord<>("topic01", "idempotence", "test idempotence");
         producer.send(record);
         producer.flush();
 
