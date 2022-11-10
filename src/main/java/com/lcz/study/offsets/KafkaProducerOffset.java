@@ -17,7 +17,7 @@ public class KafkaProducerOffset {
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 5; i < 10; i++) {
             // 不指定key，则采用轮询策略，否则采用hash策略
             ProducerRecord<String, String> record =
                     new ProducerRecord<>("topic01", "key_" + i, "value_" + i);
